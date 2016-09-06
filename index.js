@@ -13,6 +13,37 @@ function styles (cb) {
   })
 }
 
+const base = path.dirname(require.main.filename)
+const production = process.NODE_ENV === 'production'
+var c = 0
+
+function tokens (mappings) {
+  cmify.init({
+    generateScopedName: function (orig) {
+      return function (exportedName, filename) {
+        var len = mappings.length
+        for (var i = 0; i < len; i++) {
+          if (mappings[i].test(filename, exportedName)) {
+            return mappings[i].map(exportedName, filename)
+          }
+        }
+        if (production) { return '_' + c++ }
+        return orig(exportedName, path.relative(base, filename))
+      }
+    }
+  })
+}
+
+function configure (opts) {
+  opts = opts || {}
+  tokens(opts.mappings || [
+    {
+      test: (f) => /node_modules\/(.+)tachyons(.*)/.test(f),
+      map: (n) => 'T-' + n,
+    }
+  ])
+}
+
 module.exports = function (file) {
   file = file || './styles.css'
   file = path.resolve(path.dirname(caller()), file)
