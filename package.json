@@ -1,0 +1,15 @@
+{
+  "name": "css-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "David Mark Clements",
+  "license": "MIT",
+  "dependencies": {
+    "cmify": "git://github.com/davidmarkclements/cmify.git#f51bc8bf66de1cfeba83efa71cfe5d290aaaa2fd"
+  }
+}
