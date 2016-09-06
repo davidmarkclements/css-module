@@ -18,6 +18,17 @@ const production = process.NODE_ENV === 'production'
 var c = 0
 
 function tokens (mappings) {
+  if (!mappings) {
+    cmify.init({
+      generateScopedName: function (orig) {
+        return function (exportedName, filename) {
+          if (production) { return '_' + c++ }
+          return orig(exportedName, path.relative(base, filename))
+        }
+      }
+    })
+    return
+  }
   cmify.init({
     generateScopedName: function (orig) {
       return function (exportedName, filename) {
