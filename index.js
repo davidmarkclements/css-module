@@ -41,7 +41,7 @@ function configure (opts) {
 }
 
 module.exports = function (file, opts) {
-  if (!configured) configure(opts)
+  if (!configure.d) configure(opts)
   file = file || './styles.css'
   file = path.resolve(path.dirname(caller()), file)
   return cmify(fs.readFileSync(file, 'utf8'), file)
