@@ -47,6 +47,8 @@ module.exports = function (file, opts) {
   return cmify(fs.readFileSync(file, 'utf8'), file)
 }
 
+module.exports.configure = styles
+
 module.exports.styles = styles
 
 function caller () {
