@@ -36,15 +36,12 @@ function tokens (mappings) {
 
 function configure (opts) {
   opts = opts || {}
-  tokens(opts.mappings || [
-    {
-      test: (f) => /node_modules\/(.+)tachyons(.*)/.test(f),
-      map: (n) => 'T-' + n,
-    }
-  ])
+  tokens(opts.mappings)
+  configure.d = true
 }
 
-module.exports = function (file) {
+module.exports = function (file, opts) {
+  if (!configured) configure(opts)
   file = file || './styles.css'
   file = path.resolve(path.dirname(caller()), file)
   return cmify(fs.readFileSync(file, 'utf8'), file)
